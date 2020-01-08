@@ -31,6 +31,7 @@ apt-get install -y make \
                    curl \
                    openjdk-8-jdk \
                    ant \
+                   maven \
                    zip \
                    unzip
 pip install mysql-connector-python
@@ -52,6 +53,22 @@ export DEBIAN_FRONTEND="noninteractive"
 apt-get install -y percona-server-server-5.7 libmysqlclient-dev
 echo "CREATE USER 'mysql_user'@'%' IDENTIFIED BY 'mysql_password'; GRANT ALL PRIVILEGES ON *.* TO 'mysql_user'@'%'; FLUSH PRIVILEGES;" | mysql -u root
 
+service mysql stop
+systemctl disable mysql
+
+# Install etcd
+export RELEASE="3.3.18"
+wget https://github.com/etcd-io/etcd/releases/download/v${RELEASE}/etcd-v${RELEASE}-linux-amd64.tar.gz
+tar xvf etcd-v${RELEASE}-linux-amd64.tar.gz
+cd etcd-v${RELEASE}-linux-amd64
+mv etcd etcdctl /usr/local/bin
+
+# Cannot be located on the mounted volume.
+# examples/local/etcd-up.sh will fail - https://github.com/etcd-io/etcd/issues/5923#issuecomment-232100038
+VTDATAROOT=/home/vagrant/vitess
+mkdir $VTDATAROOT
+chown -R vagrant:vagrant $VTDATAROOT
+
 # System tweaks
 printf "\nSetting /etc/environment\n"
 {
@@ -61,6 +78,7 @@ printf "\nSetting /etc/environment\n"
   echo "GOPATH=${GOPATH}"
   echo "PATH=${PATH}:${GOROOT}/bin:${GOPATH}/bin"
   echo "VITESS_WORKSPACE=/vagrant/src/vitess.io/vitess"
+  echo "VTDATAROOT=${VTDATAROOT}"
 } >> /etc/environment
 # shellcheck disable=SC2013
 # shellcheck disable=SC2163

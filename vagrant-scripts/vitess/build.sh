@@ -16,7 +16,7 @@ set -e
 # This is just to make sure the vm can write into these directories
 sudo chown "$(whoami)":"$(whoami)" /vagrant
 sudo chown "$(whoami)":"$(whoami)" /vagrant/src
-cd "$VITESS_WORKSPACE"
+cd "${VITESS_WORKSPACE}"
 
 # open-jdk version that we are using in the VM needs this flag, otherwise we will fail to build ZK
 export JAVA_TOOL_OPTIONS="-Dhttps.protocols=TLSv1.2"
@@ -25,7 +25,7 @@ export JAVA_TOOL_OPTIONS="-Dhttps.protocols=TLSv1.2"
 # shellcheck disable=SC1091
 source dev.env
 # shellcheck disable=SC1091
-source /vagrant/dist/grpc/usr/local/bin/activate
+source /${VITESS_WORKSPACE}/dist/grpc/usr/local/bin/activate
 pip install mysqlclient
 make build
 
