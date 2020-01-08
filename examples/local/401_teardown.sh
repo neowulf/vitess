@@ -22,18 +22,18 @@ set -e
 # shellcheck disable=SC2128
 script_root=$(dirname "${BASH_SOURCE}")
 
-./vtgate-down.sh
+./vtgate-down.sh || true
 
 for TABLET in 100 200 300 400; do
- ./lvtctl.sh GetTablet zone1-$TABLET >/dev/null 2>&1 && CELL=zone1 UID_BASE=$TABLET "$script_root/vttablet-down.sh"
+ (./lvtctl.sh -action_timeout 0h0m1s GetTablet zone1-$TABLET >/dev/null 2>&1 && CELL=zone1 UID_BASE=$TABLET "$script_root/vttablet-down.sh") || true
 done;
 
-./vtctld-down.sh
+./vtctld-down.sh || true
 
 if [ "${TOPO}" = "zk2" ]; then
-    CELL=zone1 "$script_root/zk-down.sh"
+    CELL=zone1 "$script_root/zk-down.sh" || true
 else
-    CELL=zone1 "$script_root/etcd-down.sh"
+    CELL=zone1 "$script_root/etcd-down.sh" || true
 fi
 
 # pedantic check: grep for any remaining processes
@@ -41,7 +41,7 @@ fi
 if [ ! -z "$VTDATAROOT" ]; then
 
  if pgrep -f -l "$VTDATAROOT" > /dev/null; then
-  echo "ERROR: Stale processes detected! It is recommended to manuallly kill them:"
+  echo "ERROR: Stale processes detected! It is recommended to manually kill them:"
   pgrep -f -l "$VTDATAROOT"
  else
   echo "All good! It looks like every process has shut down"
