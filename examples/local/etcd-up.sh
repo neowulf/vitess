@@ -29,14 +29,15 @@ source "${script_root}/env.sh"
 # Check that etcd is not already running
 curl "http://${ETCD_SERVER}" > /dev/null 2>&1 && fail "etcd is already running. Exiting."
 
-etcd --enable-v2=true --data-dir "${VTDATAROOT}/etcd/"  --listen-client-urls "http://${ETCD_SERVER}" --advertise-client-urls "http://${ETCD_SERVER}" > "${VTDATAROOT}"/tmp/etcd.out 2>&1 &
+ETCD_LOG="${VTDATAROOT}"/tmp/etcd.out
+etcd --enable-v2=true --data-dir "${VTDATAROOT}/etcd/"  --listen-client-urls "http://${ETCD_SERVER}" --advertise-client-urls "http://${ETCD_SERVER}" > ${ETCD_LOG} 2>&1 &
 PID=$!
 echo $PID > "${VTDATAROOT}/tmp/etcd.pid"
 sleep 5
+ps -p $PID > /dev/null 2>&1 || (fail "etcd failed to start. Check logs at ${ETCD_LOG}")
 
 echo "add /vitess/global"
 etcdctl --endpoints "http://${ETCD_SERVER}" mkdir /vitess/global &
-
 
 echo "add /vitess/$cell"
 etcdctl --endpoints "http://${ETCD_SERVER}" mkdir /vitess/$cell &
