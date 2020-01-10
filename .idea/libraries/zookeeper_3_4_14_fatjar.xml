@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="zookeeper-3.4.14-fatjar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/vt-zookeeper-3.4.14/lib/zookeeper-3.4.14-fatjar.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

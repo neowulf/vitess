@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Python" name="Python">
+      <configuration sdkName="Remote Python 2.7.12 Vagrant VM at ~/Documents/third_party/vitess (/usr/bin/python)" />
+    </facet>
+  </component>
+  <component name="Go" enabled="true" />
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.github" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/.vagrant" />
+      <excludeFolder url="file://$MODULE_DIR$/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/java" />
+      <excludeFolder url="file://$MODULE_DIR$/py" />
+      <excludeFolder url="file://$MODULE_DIR$/py-vtdb" />
+      <excludeFolder url="file://$MODULE_DIR$/third_party" />
+      <excludeFolder url="file://$MODULE_DIR$/vtdataroot" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Remote Python 2.7.12 Vagrant VM at ~/Documents/third_party/vitess (/usr/bin/python) interpreter library" level="application" />
+  </component>
+</module>

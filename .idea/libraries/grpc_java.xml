@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="grpc-java">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/java/grpc-client/target/generated-sources/protobuf/grpc-java" />
+      <root url="file://$PROJECT_DIR$/java/grpc-client/target/generated-sources/protobuf/java" />
+    </SOURCES>
+  </library>
+</component>
